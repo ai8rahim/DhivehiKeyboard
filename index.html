@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Dhivehi Keyboard</title>
+<script language="javascript" type="text/javascript" src="jquery.js"></script>
+</head>
+
+<body>
+<textarea dir="rtl" id="dv" align="center" style="width:100%; height:200px; font-family:Faruma"></textarea>
+<script language="javascript" type="text/javascript">
+function addDVkbd(el) {
+    var EN = new Array(113, 119, 101, 114, 116, 121, 117, 105, 111, 112, 91, 93, 92, 97, 115, 100, 102, 103, 104, 106, 107, 108, 59, 39, 122, 120, 99, 118, 98, 110, 109, 44, 46, 47, 81, 87, 69, 82, 84, 89, 85, 73, 79, 80, 123, 125, 124, 65, 83, 68, 70, 71, 72, 74, 75, 76, 58, 92, 34, 90, 88, 67, 86, 66, 78, 77, 60, 62, 63);
+    var DV = new Array(1968, 1927, 1964, 1923, 1932, 1940, 1962, 1960, 1966, 1941, 93, 91, 92, 1958, 1936, 1931, 1930, 1934, 1920, 1942, 1926, 1933, 1563, 39, 1938, 215, 1943, 1928, 1924, 1922, 1929, 1548, 46, 47, 1956, 1954, 1965, 1948, 1939, 1952, 1963, 1961, 1967, 247, 125, 123, 124, 1959, 1921, 1937, 65010, 1955, 1945, 1947, 1946, 1925, 58, 92, 34, 1953, 1944, 1949, 1957, 1950, 1935, 1951, 62, 60, 1567);
+    $(el).unbind('keypress');
+    $(el).bind('keypress', function(e) {
+        var a = (e.which) ? e.which : e.keyCode;
+        if ($(EN).index(a) > -1 && !e.ctrlKey) {
+            g = String.fromCharCode(DV[$(EN).index(a)]);
+            if (typeof e.preventDefault == 'function') {
+                e.preventDefault();
+            }
+            else {
+                e.returnValue = false;
+            }
+            if (this.selectionStart > -1) {
+                var h = this.selectionStart + 1;
+                this.value = this.value.substring(0, this.selectionStart) + g + this.value.substring(this.selectionEnd, this.value.length);
+                this.focus();
+                this.setSelectionRange(h, h)
+            }
+            else if (document.selection) {
+                this.focus();
+                sel = document.selection.createRange();
+                sel.text = g;
+            }
+            else {
+                this.value += g;
+            }
+
+        }
+    });
+}
+addDVkbd("#dv")
+</script>
+</body>
+</html>
